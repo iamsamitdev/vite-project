@@ -3,7 +3,8 @@
   <h1 class="font-extrabold text-3xl">Home</h1>
   <p class="mb-3">Name in store is: {{ name }}</p>
 
-  <input v-model="newName" type="text" class="p-2 mr-4 border border-gray-600 rounded">
+  <label for="fname">Your name: </label>
+  <input v-model="newName" type="text" class="p-2 mr-4 border border-gray-600 rounded" placeholder="Your name">
   <button @click="saveName" class="p-2 text-white bg-indigo-600 rounded">Submit</button>
 
 </template>
@@ -15,7 +16,7 @@
     import { useRouter } from 'vue-router'
     
     const store = useStore()
-    const router = useRouter
+    const router = useRouter()
 
     const name = computed(() => {
         return store.state.user.name

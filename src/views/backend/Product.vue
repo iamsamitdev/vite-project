@@ -2,7 +2,7 @@
     <div>
         <div class="flex items-center justify-between my-8">
             <h2 class="my-6 text-sm font-semibold text-gray-700 md:text-xl dark:text-gray-200">
-                Product list (0)
+                Product list ({{products.total}})
             </h2>
 
             <div class="flex justify-center flex-1 lg:mr-32">
@@ -54,7 +54,7 @@
             <div v-show="loading" class="w-full overflow-x-auto">
                 <div class="flex h-screen">
                     <div class="mx-auto my-80">
-                        <h3 class="text-white">กำลังโหลดข้อมูล...</h3>
+                        <h3 class="dark:text-white">กำลังโหลดข้อมูล...</h3>
                     </div>
                 </div>
             </div>

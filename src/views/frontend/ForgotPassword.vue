@@ -11,10 +11,10 @@
           </div>
           <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div class="w-full">
-                <h1 class="mb-4 text-xl font-semibold text-white dark:text-gray-200">ลืมรหัสผ่าน</h1>
+                <h1 class="mb-4 text-xl font-semibold dark:text-gray-200">ลืมรหัสผ่าน</h1>
 
                 <form>
-                  <label class="block text-white text-sm mb-2" for="email">อีเมล์</label>
+                  <label class="block text-sm mb-2" for="email">อีเมล์</label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight" id="email" type="text" autocomplete="email">
                     <input type="button"
                     class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg cursor-pointer active:bg-purple-600 hover:bg-purple-700" value="ส่งข้อมูล">

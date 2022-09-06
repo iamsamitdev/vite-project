@@ -10,6 +10,6 @@ export default defineConfig({
       { find: 'components', replacement: '/src/components' },
     ]
   },
-  base: "/vue3cmcomplaint",
+  // base: "/vue3cmcomplaint",
   plugins: [vue()]
 })

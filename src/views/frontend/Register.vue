@@ -14,26 +14,26 @@
             
             <div class="w-full">
 
-              <h1 class="mb-4 text-xl font-semibold text-white dark:text-gray-200">สมัครสมาชิกใหม่</h1>
+              <h1 class="mb-4 text-xl font-semibold dark:text-gray-200">สมัครสมาชิกใหม่</h1>
 
               <form @submit.prevent="onSubmit">
 
-                <label class="block mb-2 text-sm text-white" for="fullname">ชื่อ-สกุล</label>
+                <label class="block mb-2 text-sm" for="fullname">ชื่อ-สกุล</label>
                 <input v-model="fullname"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="fullname" name="fullname" type="text">
                 
-                <label class="block mt-3 mb-2 text-sm text-white" for="username">ชื่อผู้ใช้</label>
+                <label class="block mt-3 mb-2 text-sm" for="username">ชื่อผู้ใช้</label>
                 <input v-model="username"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="username" name="username" type="text">
 
-                <label class="block mt-3 mb-2 text-sm text-white" for="mobile">เบอร์โทรศัพท์</label>
+                <label class="block mt-3 mb-2 text-sm" for="mobile">เบอร์โทรศัพท์</label>
                 <input v-model="mobile"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="mobile" name="mobile" type="text">
 
-                <label class="block mt-3 mb-2 text-sm text-white" for="email">อีเมล์</label>
+                <label class="block mt-3 mb-2 text-sm" for="email">อีเมล์</label>
                 <input v-model="email"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="email" name="email" type="text" autocomplete="email">
 
-                <label class="block mt-3 mb-2 text-sm text-white" for="password">รหัสผ่าน</label>
+                <label class="block mt-3 mb-2 text-sm" for="password">รหัสผ่าน</label>
                 <input v-model="password"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="password" name="password" type="password" autocomplete="current-password">
     
-                <label class="block mt-3 mb-2 text-sm text-white" for="confirm_password">ยืนยันรหัสผ่าน</label>
+                <label class="block mt-3 mb-2 text-sm" for="confirm_password">ยืนยันรหัสผ่าน</label>
                 <input v-model="confirm_password"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="confirm_password" name="confirm_password" type="password" autocomplete="current-password">
 
                 <p class="my-4"></p>
@@ -88,7 +88,8 @@
 
 <script>
 
-    import http from '@/services/AuthService';
+    import http from '@/services/AuthService'
+    import Swal from 'sweetalert2'
 
     export default {
 
@@ -117,6 +118,15 @@
               "role": 1
             }
           ).then(response => {
+
+            new Swal({
+                  title: 'สถานะการลงทะเบียน',
+                  text: 'ลงทะเบียนเรียบร้อยแล้ว กำลังเข้าสู่ระบบ',
+                  icon: 'success',
+                  allowOutsideClick: false,
+                  allowEscapeKey: true
+              })
+
             // console.log(response)
             // เก็บข้อมูล user ลง localStorage
             localStorage.setItem('user', JSON.stringify(response.data))

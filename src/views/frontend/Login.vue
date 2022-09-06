@@ -15,14 +15,14 @@
             
             <div class="w-full">
 
-              <h1 class="mb-4 text-xl font-semibold text-white dark:text-gray-200">เข้าสู่ระบบ</h1>
+              <h1 class="mb-4 text-xl font-semibold dark:text-gray-200">เข้าสู่ระบบ</h1>
 
               <form @submit.prevent="onSubmit">
 
-                <label class="block mt-3 mb-2 text-sm text-white" for="email">อีเมล์</label>
+                <label class="block mt-3 mb-2 text-sm" for="email">อีเมล์</label>
                 <input v-model="email" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" type="text" id="email" name="email">
 
-                <label class="block mt-3 mb-2 text-sm text-white" for="password">รหัสผ่าน</label>
+                <label class="block mt-3 mb-2 text-sm" for="password">รหัสผ่าน</label>
                 <input v-model="password" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" type="password" id="password" name="password">
 
                 <p class="my-4"></p>
@@ -74,9 +74,8 @@
 
 <script>
 
-    import http from '@/services/AuthService';
-    // import Swal from 'vue-sweetalert2'
-    import { createApp } from 'vue'
+    import http from '@/services/AuthService'
+    import Swal from 'sweetalert2'
 
     const dict = {
       custom: {
@@ -89,6 +88,7 @@
       }
     };
 
+
     export default {
 
       data(){
@@ -99,6 +99,12 @@
       },
 
       methods: {
+
+        showAlert() {
+          // Use sweetalert2
+          this.$swal('Hello Vue world!!!');
+        },
+
         submitForm(){
          
           // เรียกใช้งาน API Register
@@ -116,51 +122,51 @@
             // Redirect ไปหน้า Dashboard
             this.$router.push({name: 'Dashboard'})
 
-            // let timerInterval
-            // createApp({
-            //     html: 'กำลังเข้าสู่ระบบ <b></b>',
-            //     timer: 2000,
-            //     timerProgressBar: true,
-            //     didOpen: () => {
-            //         createApp.showLoading()
-            //         timerInterval = setInterval(() => {
-            //         const content = createApp.getContent()
-            //         if (content) {
-            //             const b = content.querySelector('b')
-            //             if (b) {
-            //                 b.textContent = createApp.getTimerLeft()
-            //             }
-            //         }
-            //         }, 2000)
-            //     },
-            //     willClose: () => {
-            //         clearInterval(timerInterval)
-            //     }
-            // }).then((result) => {
-            //     if (result.dismiss === createApp.DismissReason.timer) {
+            let timerInterval
+            new Swal({
+                html: 'กำลังเข้าสู่ระบบ <b></b>',
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    createApp.showLoading()
+                    timerInterval = setInterval(() => {
+                    const content = createApp.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                            b.textContent = createApp.getTimerLeft()
+                        }
+                    }
+                    }, 2000)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+            }).then((result) => {
+                if (result.dismiss === createApp.DismissReason.timer) {
 
-            //       // เก็บข้อมูล user ลง localStorage
-            //       localStorage.setItem('user', JSON.stringify(response.data))
+                  // เก็บข้อมูล user ลง localStorage
+                  localStorage.setItem('user', JSON.stringify(response.data))
 
-            //       // Redirect ไปหน้า Dashboard
-            //       this.$router.push({name: 'Dashboard'})
+                  // Redirect ไปหน้า Dashboard
+                  this.$router.push({name: 'Dashboard'})
                   
-            //     }
-            // })
+                }
+            })
 
           }).catch(function (error) {
             if(error.response.status==401){
 
-              alert('ข้อมูลเข้าระบบไม่ถูกต้อง')
-              // createApp('Error', 'Some kind of error', 'error');
-              // createApp({
-              //     title: 'มีข้อผิดพลาด!',
-              //     text: 'ข้อมูลเข้าระบบไม่ถูกต้อง',
-              //     icon: 'error',
-              //     confirmButtonText: 'ลองใหม่อีกครั้ง',
-              //     allowOutsideClick: false,
-              //     allowEscapeKey: true
-              // })
+              // alert('ข้อมูลเข้าระบบไม่ถูกต้อง')
+              new Swal({
+                  title: 'มีข้อผิดพลาด!',
+                  text: 'ข้อมูลเข้าระบบไม่ถูกต้อง',
+                  icon: 'error',
+                  confirmButtonText: 'ลองใหม่อีกครั้ง',
+                  allowOutsideClick: false,
+                  allowEscapeKey: true
+              })
+
             }
           })
         }

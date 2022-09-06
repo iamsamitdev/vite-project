@@ -3,7 +3,7 @@
         <div class="container pt-20 mx-auto">
             <div class="flex flex-wrap">
                 <div class="w-full p-4 xl:mr-auto xl:w-4/12">
-                    <img src="@/assets/img/logo-main.png" class="w-48 mb-6" alt="smart logo" width="192" height="83"/>
+                    <img src="@/assets/img/logo-main.webp" class="w-48 mb-6" alt="smart logo" width="192" height="83"/>
                     <p class="mb-4 text-sm">Duis pharetra venenatis felis, ut tincidunt ipsum consequat nec. Fusce et porttitor libero, eu aliquam nisi. Nam finibus ullamcorper semper.</p>
                     <div class="mb-4">
                         <a href="#" class="hover:text-indigo-200">+1 234 567-890</a>

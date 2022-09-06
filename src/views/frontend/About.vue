@@ -3,7 +3,7 @@
       <div class="container pt-40 pb-20 mx-auto">
           <div class="flex flex-wrap items-center">
               <div class="w-full p-4 lg:w-6/12">
-                  <img src="@/assets/img/img-about.png" class="w-full"/>
+                  <img src="@/assets/img/img-about.webp" class="w-full"/>
               </div>
               <div class="w-full p-4 lg:w-5/12 lg:ml-auto">
                   <h6 class="font-medium text-indigo-900">รู้จักเรา</h6>

@@ -6,7 +6,7 @@
            <img
               aria-hidden="true"
               class="object-cover w-full h-full"
-              src="@/assets/img/forgot-password-office.jpeg"
+              src="@/assets/img/forgot-password-office.webp"
               alt="Office"/>
           </div>
           <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">

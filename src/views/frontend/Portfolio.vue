@@ -8,7 +8,7 @@
             <div class="flex flex-wrap items-center mb-4">
                 <div class="w-full p-4 lg:w-3/12 sm:w-6/12">
                     <a href="#" class="block text-left hover:opacity-75"> 
-                        <img src="@/assets/img/img-work-1.jpg" class="object-cover w-full h-64"/> 
+                        <img src="@/assets/img/img-work-1.webp" class="object-cover w-full h-64"/> 
                         <div class="flex items-center justify-between px-4 py-3 bg-indigo-100">
                             <h5 class="text-base font-semibold text-gray-900">Project 1</h5>
                             <i class="fa-plus fas"></i>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="w-full p-4 lg:w-3/12 sm:w-6/12">
                     <a href="#" class="block text-left hover:opacity-75"> 
-                        <img src="@/assets/img/img-work-2.jpg" class="object-cover w-full h-64"/> 
+                        <img src="@/assets/img/img-work-2.webp" class="object-cover w-full h-64"/> 
                         <div class="flex items-center justify-between px-4 py-3 bg-indigo-100">
                             <h5 class="text-base font-semibold text-gray-900">Project 2</h5>
                             <i class="fa-plus fas"></i>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="w-full p-4 lg:w-3/12 sm:w-6/12">
                     <a href="#" class="block text-left hover:opacity-75"> 
-                        <img src="@/assets/img/img-work-3.jpg" class="object-cover w-full h-64"/> 
+                        <img src="@/assets/img/img-work-3.webp" class="object-cover w-full h-64"/> 
                         <div class="flex items-center justify-between px-4 py-3 bg-indigo-100">
                             <h5 class="text-base font-semibold text-gray-900">Project 3</h5>
                             <i class="fa-plus fas"></i>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="w-full p-4 lg:w-3/12 sm:w-6/12">
                     <a href="#" class="block text-left hover:opacity-75"> 
-                        <img src="@/assets/img/img-work-4.jpg" class="object-cover w-full h-64"/> 
+                        <img src="@/assets/img/img-work-4.webp" class="object-cover w-full h-64"/> 
                         <div class="flex items-center justify-between px-4 py-3 bg-indigo-100">
                             <h5 class="text-base font-semibold text-gray-900">Project 4</h5>
                             <i class="fa-plus fas"></i>

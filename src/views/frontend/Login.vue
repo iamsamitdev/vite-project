@@ -6,7 +6,7 @@
             <img
               aria-hidden="true"
               class="object-cover w-full h-full dark:block"
-              src="@/assets/img/login-office.jpg"
+              src="@/assets/img/login-office.webp"
               alt="Office"/>
             
           </div>

@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // base: "/vue3cmcomplaint/",
+  plugins: [vue()],
   resolve: {
     alias: [
       { find: '@', replacement: '/src' },
@@ -10,6 +12,7 @@ export default defineConfig({
       { find: 'components', replacement: '/src/components' },
     ]
   },
-  // base: "/vue3cmcomplaint",
-  plugins: [vue()]
+  build: {
+    chunkSizeWarningLimit: 3600,
+  },
 })

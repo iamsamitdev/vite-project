@@ -3,7 +3,7 @@
         <div class="container pt-20 mx-auto">
             <div class="flex flex-wrap">
                 <div class="w-full p-4 xl:mr-auto xl:w-4/12">
-                    <img src="@/assets/img/logo-main.png" class="w-48 mb-6" alt="smart logo" width="" height=""/>
+                    <img src="@/assets/img/logo-main.png" class="w-48 mb-6" alt="smart logo" width="192" height="83"/>
                     <p class="mb-4 text-sm">Duis pharetra venenatis felis, ut tincidunt ipsum consequat nec. Fusce et porttitor libero, eu aliquam nisi. Nam finibus ullamcorper semper.</p>
                     <div class="mb-4">
                         <a href="#" class="hover:text-indigo-200">+1 234 567-890</a>
@@ -11,13 +11,13 @@
                         <a href="#" class="hover:text-indigo-200">hello@demo.com</a>
                     </div>
                     <div>
-                        <a href="#" class="mr-2 text-xl hover:text-indigo-200"><i class="fa-facebook-square fab"></i></a>
-                        <a href="#" class="mr-2 text-xl hover:text-indigo-200"><i class="fa-twitter-square fab"></i></a>
-                        <a href="#" class="mr-2 text-xl hover:text-indigo-200"><i class="fa-linkedin fab"></i></a>
+                        <a href="#facebook" title="facebook" class="mr-2 text-xl hover:text-indigo-200"><i class="fa-facebook-square fab"></i></a>
+                        <a href="#twitter" title="twitter" class="mr-2 text-xl hover:text-indigo-200"><i class="fa-twitter-square fab"></i></a>
+                        <a href="#linkedin" title="linkedin" class="mr-2 text-xl hover:text-indigo-200"><i class="fa-linkedin fab"></i></a>
                     </div>
                 </div>
                 <div class="w-full p-4 xl:w-2/12 sm:w-4/12">
-                    <h4 class="mb-8 text-lg font-medium text-gray-400 uppercase">About</h4>
+                    <h1 class="mb-8 text-lg font-medium text-gray-400 uppercase">About</h1>
                     <ul>
                         <li class="mb-4">
                             <a href="#" class="hover:text-indigo-200">Get Quote</a>
@@ -34,7 +34,7 @@
                     </ul>
                 </div>
                 <div class="w-full p-4 xl:w-2/12 sm:w-4/12">
-                    <h4 class="mb-8 text-lg font-medium text-gray-400 uppercase">Services</h4>
+                    <h1 class="mb-8 text-lg font-medium text-gray-400 uppercase">Services</h1>
                     <ul>
                         <li class="mb-4">
                             <a href="#" class="hover:text-indigo-200">Web Design</a>
@@ -54,7 +54,7 @@
                     </ul>
                 </div>
                 <div class="w-full p-4 xl:w-2/12 sm:w-4/12">
-                    <h4 class="mb-8 text-lg font-medium text-gray-400 uppercase">Other</h4>
+                    <h1 class="mb-8 text-lg font-medium text-gray-400 uppercase">Other</h1>
                     <ul>
                         <li class="mb-4">
                             <a href="#" class="hover:text-indigo-200">Business Stories</a>

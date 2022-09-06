@@ -4,7 +4,7 @@
         
         <nav class="container flex flex-wrap items-center px-4 mx-auto">
             <router-link to="/">
-                <img src="@/assets/img/logo-main.png" alt="logo" class="w-40" width="" height="">
+                <img src="@/assets/img/logo-main.png" alt="logo" class="w-40" width="160" height="69">
             </router-link>
             <button class="px-3 py-2 ml-auto text-indigo-900 border-2 border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white lg:hidden">
                 <span class="block w-6 my-1 border-b-2 border-current"></span>
@@ -29,7 +29,7 @@
             <div class="overflow-hidden bg-white rounded-lg shadow-md ring-1 ring-black ring-opacity-5">
               <div class="flex items-center justify-between px-5 pt-4">
                 <div>
-                  <img class="w-auto h-8" src="@/assets/img/logo-main.png" alt="Achieve your life dream" width="" height="">
+                  <img class="w-auto h-8" src="@/assets/img/logo-main.png" alt="Achieve your life dream" width="160" height="69">
                 </div>
                 <div class="-mr-2">
                   <button type="button" class="inline-flex items-center justify-center p-2 text-gray-400 bg-white rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-600">

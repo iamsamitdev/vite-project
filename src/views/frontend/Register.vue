@@ -19,22 +19,65 @@
               <form @submit.prevent="onSubmit">
 
                 <label class="block mb-2 text-sm" for="fullname">ชื่อ-สกุล</label>
-                <input v-model="fullname"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="fullname" name="fullname" type="text">
+                <input 
+                  v-model="fullname" 
+                  :class="{'border-red-600': v$.fullname.$errors.length}" 
+                  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" 
+                  id="fullname" 
+                  name="fullname" 
+                  type="text">
+                <div v-if="v$.fullname.$error" class="text-sm mt-2 text-red-700"> {{ v$.fullname.$errors[0].$message }}</div>
                 
                 <label class="block mt-3 mb-2 text-sm" for="username">ชื่อผู้ใช้</label>
-                <input v-model="username"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="username" name="username" type="text">
+                <input 
+                  v-model="username" 
+                  :class="{'border-red-600': v$.username.$errors.length}" 
+                  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" 
+                  id="username" 
+                  name="username" 
+                  type="text">
+                  
+                <div v-if="v$.username.$error" class="text-sm mt-2 text-red-700"> {{ v$.username.$errors[0].$message }}</div>
 
                 <label class="block mt-3 mb-2 text-sm" for="mobile">เบอร์โทรศัพท์</label>
-                <input v-model="mobile"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="mobile" name="mobile" type="text">
+                <input 
+                  v-model="mobile" 
+                  :class="{'border-red-600': v$.mobile.$errors.length}"
+                  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" 
+                  id="mobile" 
+                  name="mobile" 
+                  type="text">
+                <div v-if="v$.mobile.$error" class="text-sm mt-2 text-red-700"> {{ v$.mobile.$errors[0].$message }}</div>
 
                 <label class="block mt-3 mb-2 text-sm" for="email">อีเมล์</label>
-                <input v-model="email"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="email" name="email" type="text" autocomplete="email">
+                <input 
+                  v-model="email" 
+                  :class="{'border-red-600': v$.email.$errors.length}"
+                  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" 
+                  id="email" 
+                  name="email" 
+                  type="text">
+                <div v-if="v$.email.$error" class="text-sm mt-2 text-red-700"> {{ v$.email.$errors[0].$message }}</div>
 
                 <label class="block mt-3 mb-2 text-sm" for="password">รหัสผ่าน</label>
-                <input v-model="password"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="password" name="password" type="password" autocomplete="current-password">
+                <input 
+                  v-model="password.password" 
+                  :class="{'border-red-600': v$.password.password.$errors.length}" 
+                  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" 
+                  id="password" 
+                  name="password" 
+                  type="password">
+                <div v-if="v$.password.password.$error" class="text-sm mt-2 text-red-700"> {{ v$.password.password.$errors[0].$message }}</div>
     
                 <label class="block mt-3 mb-2 text-sm" for="confirm_password">ยืนยันรหัสผ่าน</label>
-                <input v-model="confirm_password"  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" id="confirm_password" name="confirm_password" type="password" autocomplete="current-password">
+                <input 
+                  v-model="password.confirm_password" 
+                  :class="{'border-red-600': v$.password.confirm_password.$errors.length}" 
+                  class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" 
+                  id="confirm_password" 
+                  name="confirm_password" 
+                  type="password">
+                <div v-if="v$.password.confirm_password.$error" class="text-sm mt-2 text-red-700"> {{ v$.password.confirm_password.$errors[0].$message }}</div>
 
                 <p class="my-4"></p>
 
@@ -44,7 +87,7 @@
                   </span>
                 </label>
                 
-                <input @click="submitForm" type="button"
+                <input @click="submitForm" type="submit"
                     class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg cursor-pointer active:bg-purple-600 hover:bg-purple-700" value="สมัครสมาชิก">
               </form>
 
@@ -88,52 +131,106 @@
 
 <script>
 
+    // AuthService
     import http from '@/services/AuthService'
+
+    // SweetAlert2
     import Swal from 'sweetalert2'
+
+    // Vuelidate
+    import useVuelidate from '@vuelidate/core'
+    import { required, email, minLength, sameAs, helpers } from '@vuelidate/validators'
+
+    export function validUsername(user) {
+      let validUserPattern = new RegExp("^[a-zA-Z]*$");
+      if (validUserPattern.test(user)){
+        return true;
+      }
+      return false;
+    }
 
     export default {
 
       data(){
         return {
+          v$: useVuelidate(),
           fullname: '',
           username: '',
           mobile: '',
           email: '',
-          password: '',
-          confirm_password: ''
+          password: {
+            password: '',
+            confirm_password: '',
+          }
+        }
+      },
+
+      validations () {
+        return {
+          fullname: {
+           required:helpers.withMessage('ป้อนชื่อสกุลก่อน', required), 
+          },
+          username: {
+           required:helpers.withMessage('ป้อนชื่อผู้ใช้ก่อน', required), 
+           validUsername:helpers.withMessage('ชื่อผู้ใช้เป็นตัวอักษร a-z/A-Z เท่านั้น',validUsername)
+          },
+          mobile: {
+           required:helpers.withMessage('ป้อนเบอร์โทรศัพท์ก่อน', required), 
+          },
+          email: {
+           required:helpers.withMessage('ป้อนอีมเมล์ก่อน', required), 
+           email:helpers.withMessage('รูปแบบอีเมล์ไม่ถูกต้อง', email),  
+          },
+          password: {
+            password: {
+              required:helpers.withMessage('ป้อนรหัสผ่านก่อน', required), 
+              min:helpers.withMessage('รหัสผ่านความยาวขั้นต่ำ 6 ตัวอักษร', minLength(6)),
+            },
+            confirm_password: {
+              required:helpers.withMessage('ป้อนรหัสผ่านยืนยันก่อน', required), 
+              sameAs: helpers.withMessage('รหัสผ่านยืนยันไม่ตรงกัน',sameAs(this.password.password))
+            }
+            
+          },
         }
       },
 
       methods: {
         submitForm(){
-          // เรียกใช้งาน API Register
-          http.post('register', 
-            {
-              "fullname": this.fullname,
-              "username": this.username,
-              "email": this.email,
-              "password": this.password,
-              "password_confirmation": this.confirm_password,
-              "tel": this.mobile,
-              "role": 1
-            }
-          ).then(response => {
 
-            new Swal({
-                  title: 'สถานะการลงทะเบียน',
-                  text: 'ลงทะเบียนเรียบร้อยแล้ว กำลังเข้าสู่ระบบ',
-                  icon: 'success',
-                  allowOutsideClick: false,
-                  allowEscapeKey: true
-              })
+          this.v$.$validate() // checks all inputs
 
-            // console.log(response)
-            // เก็บข้อมูล user ลง localStorage
-            localStorage.setItem('user', JSON.stringify(response.data))
+          if(!this.v$.$error) {
+            // เรียกใช้งาน API Register
+            http.post('register', 
+              {
+                "fullname": this.fullname,
+                "username": this.username,
+                "email": this.email,
+                "password": this.password.password,
+                "password_confirmation": this.password.confirm_password,
+                "tel": this.mobile,
+                "role": 1
+              }
+            ).then(response => {
 
-            // Redirect ไปหน้า Dashboard
-            this.$router.push({name: 'Dashboard'})
-          })
+              new Swal({
+                    title: 'สถานะการลงทะเบียน',
+                    text: 'ลงทะเบียนเรียบร้อยแล้ว กำลังเข้าสู่ระบบ',
+                    icon: 'success',
+                    allowOutsideClick: false,
+                    allowEscapeKey: true
+                })
+
+              // console.log(response)
+              // เก็บข้อมูล user ลง localStorage
+              localStorage.setItem('user', JSON.stringify(response.data))
+
+              // Redirect ไปหน้า Dashboard
+              this.$router.push({name: 'Dashboard'})
+            })
+          }
+
         }
       },
       

@@ -19,15 +19,33 @@
 
               <form @submit.prevent="onSubmit">
 
-                <label class="block mt-3 mb-2 text-sm" for="email">อีเมล์</label>
-                <input v-model="email" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" type="text" id="email" name="email">
+                <!-- Email -->
+                  <label class="block mt-3 mb-2 text-sm" for="email">อีเมล์</label>
+                  <input 
+                    v-model="email" 
+                    :class="{'border-red-600': v$.email.$errors.length}"
+                    class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" 
+                    type="text" 
+                    id="email" 
+                    name="email">
 
-                <label class="block mt-3 mb-2 text-sm" for="password">รหัสผ่าน</label>
-                <input v-model="password" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" type="password" id="password" name="password">
+                  <div v-if="v$.email.$error" class="text-sm mt-2 text-red-700"> {{ v$.email.$errors[0].$message }} </div>
+
+                 <!-- password -->
+                  <label class="block mt-3 mb-2 text-sm" for="password">รหัสผ่าน</label>
+                  <input 
+                    v-model="password" 
+                    :class="{'border-red-600': v$.password.$errors.length}"
+                    class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none" 
+                    type="password" 
+                    id="password" 
+                    name="password">
+
+                  <div v-if="v$.password.$error" class="text-sm mt-2 text-red-700"> {{ v$.password.$errors[0].$message }} </div>
 
                 <p class="my-4"></p>
                 
-                <input @click="submitForm" type="button" class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg cursor-pointer active:bg-purple-600 hover:bg-purple-700" value="เข้าสู่ระบบ">
+                <input @click="submitForm" type="submit" class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg cursor-pointer active:bg-purple-600 hover:bg-purple-700" value="เข้าสู่ระบบ">
 
               </form>
 
@@ -74,27 +92,36 @@
 
 <script>
 
+    // AuthService
     import http from '@/services/AuthService'
+
+    // SweetAlert2
     import Swal from 'sweetalert2'
 
-    const dict = {
-      custom: {
-        email: {
-          required: 'กรุณป้อนอีเมล์ก่อน'
-        },
-        password: {
-          required: 'กรุณาป้อนรหัสผ่านก่อน'
-        }
-      }
-    };
-
+    // Vuelidate
+    import useVuelidate from '@vuelidate/core'
+    import { required, email, minLength, helpers } from '@vuelidate/validators'
 
     export default {
-
+      
       data(){
         return {
+          v$: useVuelidate(),
           email: '',
           password: ''
+        }
+      },
+
+      validations () {
+        return {
+          email: {
+           required:helpers.withMessage('ป้อนอีเมล์ก่อน', required), 
+           email:helpers.withMessage('รูปแบบอีเมล์ไม่ถูกต้อง', email),  
+          },
+          password: {
+            required:helpers.withMessage('ป้อนรหัสผ่านก่อน', required), 
+            min:helpers.withMessage('รหัสผ่านความยาวขั้นต่ำ 6 ตัวอักษร', minLength(6)),
+          },
         }
       },
 
@@ -106,69 +133,80 @@
         },
 
         submitForm(){
-         
-          // เรียกใช้งาน API Register
-          http.post('login', 
-            {
-              "email": this.email,
-              "password": this.password
-            }
-          ).then(response => {
-            // console.log(response)
 
-            // เก็บข้อมูล user ลง localStorage
-            localStorage.setItem('user', JSON.stringify(response.data))
+          // console.log(this.v$)
+          this.v$.$validate() // checks all inputs
 
-            // Redirect ไปหน้า Dashboard
-            this.$router.push({name: 'Dashboard'})
+          if(!this.v$.$error) {
 
-            let timerInterval
-            new Swal({
-                html: 'กำลังเข้าสู่ระบบ <b></b>',
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    createApp.showLoading()
-                    timerInterval = setInterval(() => {
-                    const content = createApp.getContent()
-                    if (content) {
-                        const b = content.querySelector('b')
-                        if (b) {
-                            b.textContent = createApp.getTimerLeft()
-                        }
-                    }
-                    }, 2000)
-                },
-                willClose: () => {
-                    clearInterval(timerInterval)
-                }
-            }).then((result) => {
-                if (result.dismiss === createApp.DismissReason.timer) {
+            // เรียกใช้งาน API Register
+            http.post('login', 
+              {
+                "email": this.email,
+                "password": this.password
+              }
+            ).then(response => {
+              // console.log(response)
 
-                  // เก็บข้อมูล user ลง localStorage
-                  localStorage.setItem('user', JSON.stringify(response.data))
+              // เก็บข้อมูล user ลง localStorage
+              localStorage.setItem('user', JSON.stringify(response.data))
 
-                  // Redirect ไปหน้า Dashboard
-                  this.$router.push({name: 'Dashboard'})
-                  
-                }
-            })
+              // Redirect ไปหน้า Dashboard
+              this.$router.push({name: 'Dashboard'})
 
-          }).catch(function (error) {
-            if(error.response.status==401){
-
-              // alert('ข้อมูลเข้าระบบไม่ถูกต้อง')
+              let timerInterval
               new Swal({
-                  title: 'มีข้อผิดพลาด!',
-                  text: 'ข้อมูลเข้าระบบไม่ถูกต้อง',
-                  icon: 'error',
-                  confirmButtonText: 'ลองใหม่อีกครั้ง',
-                  allowOutsideClick: false,
-                  allowEscapeKey: true
+                  html: 'กำลังเข้าสู่ระบบ <b></b>',
+                  timer: 2000,
+                  timerProgressBar: true,
+                  didOpen: () => {
+                      createApp.showLoading()
+                      timerInterval = setInterval(() => {
+                      const content = createApp.getContent()
+                      if (content) {
+                          const b = content.querySelector('b')
+                          if (b) {
+                              b.textContent = createApp.getTimerLeft()
+                          }
+                      }
+                      }, 2000)
+                  },
+                  willClose: () => {
+                      clearInterval(timerInterval)
+                  }
+              }).then((result) => {
+                  if (result.dismiss === createApp.DismissReason.timer) {
+
+                    // เก็บข้อมูล user ลง localStorage
+                    localStorage.setItem('user', JSON.stringify(response.data))
+
+                    // Redirect ไปหน้า Dashboard
+                    this.$router.push({name: 'Dashboard'})
+                    
+                  }
               })
 
-            }
-          })
+            }).catch(function (error) {
+              if(error.response.status==401){
+
+                // alert('ข้อมูลเข้าระบบไม่ถูกต้อง')
+                new Swal({
+                    title: 'มีข้อผิดพลาด!',
+                    text: 'ข้อมูลเข้าระบบไม่ถูกต้อง',
+                    icon: 'error',
+                    confirmButtonText: 'ลองใหม่อีกครั้ง',
+                    allowOutsideClick: false,
+                    allowEscapeKey: true
+                })
+
+              }
+            })
+
+          }else{
+            // // if ANY fail validation
+            // alert('Form failed validation')
+          }
+
         }
       },       
     }
